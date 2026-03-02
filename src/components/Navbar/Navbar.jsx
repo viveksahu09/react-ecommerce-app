@@ -6,7 +6,7 @@ export default function Navbar() {
   const { cartItems } = useCart();
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{ padding: "15px 20px" }}>
       {/* Logo */}
       <h2 className="logo">MyStore</h2>
 
