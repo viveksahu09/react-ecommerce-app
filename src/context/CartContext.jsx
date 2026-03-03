@@ -66,6 +66,11 @@ export const CartProvider = ({ children }) => {
     .reduce((sum, item) => sum + item.price * item.quantity, 0)
     .toFixed(2);
 
+  // TOTAL QUANTITY 
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity, 0
+  )
+
   console.log("Cart Items:", cartItems);
 
   return (
@@ -77,6 +82,7 @@ export const CartProvider = ({ children }) => {
         decreaseQty,
         removeFromCart,
         totalPrice,
+        totalQuantity
       }}
     >
       {children}
