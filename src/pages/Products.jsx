@@ -1,19 +1,34 @@
+import { useEffect, useState } from "react";
+import fetchProduct from "../services/productService";
 import ProductCard from "../components/product/ProductCard";
+import { Col, Container, Row } from "react-bootstrap";
 
-function Products(product) {
-  const products = [
-    { id: 1, title: "Shoes" },
-    { id: 2, title: "T-Shirt" },
-  ];
-
-  return (
-    <>
-      {products.map((p) => (
-        <ProductCard key={p.id} product={p} />
-      ))}
-    </>
-  );
+function Products() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const data = await fetchProduct();
+        setProducts(data);
+        console.log("Products:", data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    loadProducts()
+  }, []);
+  
+  return <>
+   <Container>
+    <Row>
+      {products.map((product)=>{
+        return <Col key={product.id} xs={12} md={4} lg={3} className="mb-4">
+          <ProductCard product={product} />
+        </Col>
+      })}
+    </Row>
+   </Container>
+  </>;
 }
 
 export default Products;
-

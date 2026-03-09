@@ -1,6 +1,5 @@
 import { useCart } from "../context/CartContext";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function Cart() {

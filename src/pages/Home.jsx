@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+  import { useEffect, useState } from "react";
 import  fetchProduct  from "../services/productService";
 import ProductCard from "../components/product/ProductCard";
 
