@@ -18,7 +18,7 @@ function FiltersSidebar() {
       </Card>
 
       {/* Price Filter */}
-      <Card>
+      <Card className="mb-3">
         <Card.Body>
           <Card.Title>Price</Card.Title>
           <Form.Check type="checkbox" label="Under $50" />
@@ -27,8 +27,8 @@ function FiltersSidebar() {
       </Card>
 
       {/* Rating Filter */}
-      <Card>
-        <Card.Body>
+      <Card className="mb-3">
+        <Card.Body >
           <Card.Title>Rating</Card.Title>
           <Form.Check type="checkbox" label="4★ & above" />
           <Form.Check type="checkbox" label="3★ & above" />
