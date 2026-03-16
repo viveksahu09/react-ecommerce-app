@@ -5,8 +5,31 @@ import { Col, Container, Row } from "react-bootstrap";
 import FiltersSidebar from "../components/filters/FiltersSidebar";
 
 function Products() {
-  const [category, setCategory] = useState("");
   const [products, setProducts] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedPrice, setSelectedPrice] = useState([]);
+  const [selectedRating, setSelectedRating] = useState([]);
+
+  const handleCategoryChange = (category) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(
+        selectedCategories.filter((item) => {
+          return item !== category;
+        }),
+      );
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
+
+  const filteredProducts = products.filter((product) => {
+    if (selectedCategories.length === 0) {
+      return true;
+    } else {
+      return selectedCategories.includes(product.category);
+    }
+  });
+
   useEffect(() => {
     const loadProducts = async () => {
       try {
@@ -25,12 +48,15 @@ function Products() {
       <Container>
         <Row>
           <Col md={3}>
-            <FiltersSidebar />
+            <FiltersSidebar
+              selectedCategories={selectedCategories}
+              onCategoryChange={handleCategoryChange}
+            />
           </Col>
 
           <Col md={9} className="pd-4">
             <Row>
-              {products.map((product) => {
+              {filteredProducts.map((product) => {
                 return (
                   <Col key={product.id} xs={12} md={4} lg={3} className="mb-4">
                     <ProductCard product={product} />
