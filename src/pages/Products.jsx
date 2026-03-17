@@ -3,6 +3,7 @@ import fetchProduct from "../services/productService";
 import ProductCard from "../components/product/ProductCard";
 import { Col, Container, Row } from "react-bootstrap";
 import FiltersSidebar from "../components/filters/FiltersSidebar";
+import { filterProducts } from "../utils/filterProduct";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -46,44 +47,11 @@ function Products() {
     }
   };
 
-  const filteredProducts = products.filter((product) => {
-    const categoryMatch =
-      selectedCategories.length === 0 ||
-      selectedCategories.includes(product.category);
-    const ratingMatch =
-      selectedRating.length === 0 ||
-      selectedRating.some((rate) => {
-        if (rate === "4★ & above") {
-          return product.rating.rate >= 4;
-        }
-        if (rate === "3★ & above") {
-          return product.rating.rate >= 3 
-        }
-        if (rate === "2★ & above") {
-          return product.rating.rate >= 2
-        }
-        if (rate === "1★ & above") {
-          return product.rating.rate >= 1
-        }
-        return false;
-      });
-
-    const priceMatch =
-      selectedPrice.length === 0 ||
-      selectedPrice.some((price) => {
-        if (price === "Under $50") {
-          return product.price < 50;
-        }
-
-        if (price === "$50 - $100") {
-          return product.price >= 50 && product.price <= 100;
-        }
-
-        return false;
-      });
-
-    return categoryMatch && ratingMatch && priceMatch;
-  });
+  const filteredProducts = filterProducts(products,{
+    categories: selectedCategories,
+    rating: selectedRating,
+    priceRange: selectedPrice
+  })
 
   useEffect(() => {
     const loadProducts = async () => {
