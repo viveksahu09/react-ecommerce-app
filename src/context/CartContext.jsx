@@ -71,7 +71,7 @@ export const CartProvider = ({ children }) => {
     (total, item) => total + item.quantity, 0
   )
 
-  console.log("Cart Items:", cartItems);
+  // console.log("Cart Items:", cartItems);
 
   return (
     <CartContext.Provider

@@ -22,12 +22,67 @@ function Products() {
     }
   };
 
-  const filteredProducts = products.filter((product) => {
-    if (selectedCategories.length === 0) {
-      return true;
+  const handlePriceChange = (price) => {
+    if (selectedPrice.includes(price)) {
+      setSelectedPrice(
+        selectedPrice.filter((item) => {
+          return item !== price;
+        }),
+      );
     } else {
-      return selectedCategories.includes(product.category);
+      setSelectedPrice([...selectedPrice, price]);
     }
+  };
+
+  const handleRatingChange = (rating) => {
+    if (selectedRating.includes(rating)) {
+      setSelectedRating(
+        selectedRating.filter((item) => {
+          return item !== rating;
+        }),
+      );
+    } else {
+      setSelectedRating([...selectedRating, rating]);
+    }
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const categoryMatch =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(product.category);
+    const ratingMatch =
+      selectedRating.length === 0 ||
+      selectedRating.some((rate) => {
+        if (rate === "4★ & above") {
+          return product.rating.rate >= 4;
+        }
+        if (rate === "3★ & above") {
+          return product.rating.rate >= 3 
+        }
+        if (rate === "2★ & above") {
+          return product.rating.rate >= 2
+        }
+        if (rate === "1★ & above") {
+          return product.rating.rate >= 1
+        }
+        return false;
+      });
+
+    const priceMatch =
+      selectedPrice.length === 0 ||
+      selectedPrice.some((price) => {
+        if (price === "Under $50") {
+          return product.price < 50;
+        }
+
+        if (price === "$50 - $100") {
+          return product.price >= 50 && product.price <= 100;
+        }
+
+        return false;
+      });
+
+    return categoryMatch && ratingMatch && priceMatch;
   });
 
   useEffect(() => {
@@ -50,7 +105,11 @@ function Products() {
           <Col md={3}>
             <FiltersSidebar
               selectedCategories={selectedCategories}
+              selectedPrice={selectedPrice}
+              selectedRating={selectedRating}
               onCategoryChange={handleCategoryChange}
+              onRatingChange={handleRatingChange}
+              onPriceChange={handlePriceChange}
             />
           </Col>
 
