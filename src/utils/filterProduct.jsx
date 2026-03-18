@@ -1,5 +1,5 @@
 export function filterProducts(products, filters) {
-  const { categories, rating, priceRange } = filters;
+  const { categories, rating, price } = filters;
 
   return products.filter((product) => {
     const matchCategory =
@@ -16,7 +16,7 @@ export function filterProducts(products, filters) {
       });
 
     const matchPrice =
-      !priceRange || priceRange.length === 0 ||
+      !price || price.length === 0 ||
       priceRange.some((range) => {
         if (range === "Under $50") return product.price < 50;
         if (range === "$50 - $100") return product.price >= 50 && product.price <= 100;

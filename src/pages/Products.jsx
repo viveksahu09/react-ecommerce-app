@@ -50,7 +50,7 @@ function Products() {
   const filteredProducts = filterProducts(products,{
     categories: selectedCategories,
     rating: selectedRating,
-    priceRange: selectedPrice
+    price: selectedPrice
   })
 
   useEffect(() => {
