@@ -1,11 +1,11 @@
 export function filterProducts(products, filters) {
-  const { categories, rating, price } = filters;
+  const { categories, rating, priceRange } = filters;
 
   return products.filter((product) => {
-    const matchCategory =
+    const categoryMatch =
       categories.length === 0 || categories.includes(product.category);
 
-    const matchRating =
+    const ratingMatch =
       rating.length === 0 ||
       rating.some((rate) => {
         if (rate === "4★ & above") return product.rating.rate >= 4;
@@ -15,14 +15,9 @@ export function filterProducts(products, filters) {
         return true;
       });
 
-    const matchPrice =
-      !price || price.length === 0 ||
-      priceRange.some((range) => {
-        if (range === "Under $50") return product.price < 50;
-        if (range === "$50 - $100") return product.price >= 50 && product.price <= 100;
-        return true;
-      });
+    const priceMatch =
+      product.price >= priceRange[0] && product.price <= priceRange[1];
 
-    return matchCategory && matchRating && matchPrice;
+    return categoryMatch && ratingMatch && priceMatch;
   });
 }
