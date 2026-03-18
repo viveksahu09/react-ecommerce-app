@@ -15,6 +15,12 @@ function ActiveFilters({ filters, setFilters }) {
     }));
   };
 
+  const removePrice = () => {
+    setFilters((prev) => ({
+      ...prev,
+      priceRange: [0, 5000], // reset to default
+    }));
+  };
   return (
     <div className="mb-3 d-flex flex-wrap gap-2">
       {/* Categories */}
@@ -29,7 +35,7 @@ function ActiveFilters({ filters, setFilters }) {
         </Badge>
       ))}
 
-        {/* Ratings */}
+      {/* Ratings */}
       {filters.rating.map((rate) => (
         <Badge
           bg="success"
@@ -40,6 +46,18 @@ function ActiveFilters({ filters, setFilters }) {
           {rate} ✕
         </Badge>
       ))}
+
+      {/* Price */}
+      {filters.priceRange[1] !== 5000 && (
+        <Badge
+          bg="warning"
+          text="dark"
+          style={{ cursor: "pointer" }}
+          onClick={removePrice}
+        >
+          Up to ${filters.priceRange[1]} ✕
+        </Badge>
+      )}
     </div>
   );
 }

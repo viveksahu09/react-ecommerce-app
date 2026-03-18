@@ -60,6 +60,25 @@ function FiltersSidebar({ filters, setFilters, clearAllFilters }) {
         </Card.Body>
       </Card>
 
+      {/* Price Filte */}
+      <Card className="mb-3">
+        <Card.Body>
+          <Card.Title>Price</Card.Title>
+
+          {/* 🔹 Show selected price */}
+          <p>Up to ${filters.priceRange[1]}</p>
+
+           {/* 🔹 Slider */}
+           <input type="range" min="0" max="5000" value={filters.priceRange[1]} 
+           onChange={(e)=>setFilters((prev)=> ({
+            ...prev, 
+            priceRange: [0, Number(e.target.value)]
+           }))} 
+            className="w-100"
+           />
+        </Card.Body>
+      </Card>
+
       {/* Rating Filter */}
       <Card className="mb-3">
         <Card.Body>

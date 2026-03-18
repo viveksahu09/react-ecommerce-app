@@ -11,14 +11,14 @@ function Products() {
   const [filters, setFilters] = useState({
     categories: [],
     rating: [],
-    priceRange: [0, 1000],
+    priceRange: [0, 5000],
   });
 
   const clearAllFilters = () => {
     setFilters({
       categories: [],
       rating: [],
-      priceRange: [0, 1000],
+      priceRange: [0, 5000],
     });
   };
 
